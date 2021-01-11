@@ -1,0 +1,27 @@
+********To plot MOSFET I-V Characteristics********
+
+.include new.txt
+
+**Netlist**
+VDD 1 0 -1.8
+RD 1 2 10k
+VG 3 0 -1.8
+*M1 Drain Gate Source Body
+M1 0 3 2 0 PMOS W=1u L=150n
+
+**DC analysis**
+.control
+op
+print @M1[id]
+print @M1[gm]
+print v(2)
+
+***DC sweep***
+save all @M1[id]
+save all @M1[gm]
+dc  VG -3 3.0 0.01 
+plot v(2)
+plot @M1[id] vs v(2) 
+plot @M1[id] 
+.endc
+.end
