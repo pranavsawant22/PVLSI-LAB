@@ -1,0 +1,18 @@
+
+.include help.txt
+
+
+**Netlist**
+vdd 1 0 2.5v
+Vg vin 0 2v
+M0 vo vin 1 1 PMOS l=10u w=150u
+
+M1 vo vin GND GND NMOS l=10u w=150u
+
+
+.control
+dc Vg -2 5 0.01 vdd 0 2.5 0.5
+
+plot v(vo)
+.endc
+.end
