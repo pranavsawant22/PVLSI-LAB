@@ -1,0 +1,22 @@
+
+.include help.txt
+.param supply =1.5
+
+**Netlist** 
+vdd 1 0 supply
+Vin 2 0 PULSE(0 supply 0 0.5p 0.5p 0.1u 0.2u)
+M0 3 2 1 1 PMOS l=1200u w=200n
+
+M1 3 2 0 0 NMOS l=600u w=200n
+
+
+.tran 1p 250n
+
+*.measure tran Tr trig v(3) val=0.1*supply rise=1 targ v(3) val=0.9*supply rise=1
+*.measure tran Tf trig v(3) val=0.9*supply fall=1 targ v(3) val=0.1*supply fall=1
+.control
+run
+plot v(3) v(2)+0.1
+.endc
+.end
+
